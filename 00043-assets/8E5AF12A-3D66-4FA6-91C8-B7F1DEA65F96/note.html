@@ -1,0 +1,104 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px 'Helvetica Neue'}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px 'Helvetica Neue'; min-height: 16.7px}
+span.s1 {font-family: 'Helvetica Neue'; font-weight: normal; font-style: normal; font-size: 14.00pt}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1">## advanced mac rebinding</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">This technique creates three special keys on your mac keyboard. Initially people might start with just one special key, *hyper*, and later add others.</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>|<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">---: | :--- | :---</span></p>
+<p class="p1"><span class="s1">tab | tap | normal tab</span></p>
+<p class="p1"><span class="s1">tab | hold | hyper (shift–ctrl–alt–cmd) — less often used</span></p>
+<p class="p1"><span class="s1">caps lock | tap | access alfred</span></p>
+<p class="p1"><span class="s1">caps lock | hold | hyper2 (shift–ctrl–cmd) — most often used as it is in the home row</span></p>
+<p class="p1"><span class="s1">left shift | tap | access alfred snippets</span></p>
+<p class="p1"><span class="s1">left shift | hold | normal shift</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">Alfred and keyboardmaestro can be used easily without this, but rebinding three "helper" keys speeds access to shortcuts, applications, macros etc. Caps lock is taken over entirely, while tab and left shift retain their normal usage but are also given an additional property.</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">Keyboardmaestro is application–aware enough to know when you invoke it within applications, and has options to set shortcuts this way. Thus we can use two discrete levels of shortcuts: one general level, which is the same when activated from any application (hyper2+key), and a second application–specific level, which is unique to each application or set of applications (hyper+key).</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">You could also separate the usage of hyper2, for example, by combination of letters and numbers — combine hyper2 with letters for applications etc., combine hyper2 with numbers for specific files.</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">Here we also use Alfred as a shortcut "menu" for those shortcuts which we don't want to commit to memory as a hyper2+shortcut; that is, we activate alfred using caps lock (tap), the type a few letters (e.g. for screen saver, activate alfred, type scr).</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">Oddly enough, hyper+w, hyper+v, hyper+z, hyper+x do not work on my dvorak keyboard layout, because a dvorak v = . and w = , and z = / and these combinations are reserved for sysdiagnose and stackshot (programmer utilities within the operating system)</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">An additional bonus of this method is that your hands can stay on the "home row" more, and your left little finger gets more of a workout!</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">* system preferences keyboard — modifier keys — caps lock key: no action</span></p>
+<p class="p1"><span class="s1">* [seil][] free–mac setting — caps lock — change caps lock to 80 (F19)<span class="Apple-converted-space">  </span>— future options would be cmd_r or opt_r to F18 etc . NB remember to change caps lock configuration in system to "no action" as per [pqrs' notes][]</span></p>
+<p class="p1"><span class="s1">* [karabiner][] free–mac goto tab misc&amp;uninstall, select open private.xml, paste the following code (based on [brett][] and [pqrs][]); if you already have other modifications there, just paste the "items". The syntax appears to be: (1) key to modify (2) when held, send this (3) when tapped, send this.</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">here's the code</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>&lt;?xml version="1.0"?&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>&lt;root&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;item&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;name&gt;F19 to F19&lt;/name&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;appendix&gt;(F19 hold to Hyper2 (ctrl+shift+cmd) + F19 Only, send F19)&lt;/appendix&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;identifier&gt;private.f192f19_cmdshiftctrl&lt;/identifier&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;autogen&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>--KeyOverlaidModifier--</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::F19,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::COMMAND_L,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::F19,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;/autogen&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;/item&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;item&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;name&gt;Shift_L to Shift_L&lt;/name&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;appendix&gt;(Shift_L hold to Shift_L + Shift_L Only, send F18)&lt;/appendix&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;identifier&gt;private.shiftl2shiftl_f18&lt;/identifier&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;autogen&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>--KeyOverlaidModifier--</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::SHIFT_L,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::SHIFT_L,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::F18,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;/autogen&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;/item&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;item&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;name&gt;Tab to Tab&lt;/name&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;appendix&gt;(Tab tap to Tab + Tab hold send Hyper (ctrl+shift+cmd+opt))&lt;/appendix&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;identifier&gt;private.tab2tab_cmdoptshiftctrl&lt;/identifier&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;autogen&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>--KeyOverlaidModifier--</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::TAB,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::COMMAND_L,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ModifierFlag::SHIFT_L |<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ModifierFlag::OPTION_L | ModifierFlag::CONTROL_L,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>KeyCode::TAB,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;/autogen&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>&lt;/item&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>&lt;/root&gt;</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">* go back to change key tab, select reload xml; the options above should now appear at the top of the menu</span></p>
+<p class="p1"><span class="s1">* enable the options</span></p>
+<p class="p1"><span class="s1">* you can use misc&amp;uninstall launch eventviewer to see if your new options are working</span></p>
+<p class="p1"><span class="s1">* restart the computer to finish enabling the keys (you'll want to be able to bring alfred up e.g. with cmd-space later)</span></p>
+<p class="p1"><span class="s1">* set alfred to activate on F19, alfred features/clipboard/viewer hotkey to F18</span></p>
+<p class="p1"><span class="s1">* can use same method to allocate "keytap only" to fn, leftshift, leftctrl, leftalt, leftcmd, rightcmd, rightalt or most other keys</span></p>
+<p class="p1"><span class="s1">* If you'd like to read some more about this idea, read [brett], [dr drang], [steve], [karabiner], [seil].</span></p>
+<p class="p2"><span class="s1"></span><br /></p>
+<p class="p1"><span class="s1">[seil]: https://pqrs.org/osx/karabiner/seil.html</span></p>
+<p class="p1"><span class="s1">[karabiner]: https://pqrs.org/osx/karabiner</span></p>
+<p class="p1"><span class="s1">[brett]: http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/</span></p>
+<p class="p1"><span class="s1">[dr drang]: http://www.leancrew.com/all-this/2012/11/shift-control-option-command-on-caps-lock/</span></p>
+<p class="p1"><span class="s1">[steve]: http://stevelosh.com/blog/2012/10/a-modern-space-cadet/</span></p>
+<p class="p1"><span class="s1">[pqrs' notes]: https://pqrs.org/osx/karabiner/document.html.en</span></p>
+<p class="p1"><span class="s1">[pqrs]: https://pqrs.org/osx/karabiner/document.html.en</span></p>
+</body>
+</html>
