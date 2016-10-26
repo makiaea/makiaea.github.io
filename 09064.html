@@ -2,6 +2,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>09064</title>
+<script type="text/javascript">
+function showhide(id)
+{
+    var e = document.getElementById(id);
+    e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+}
+</script>
 <style>
 rect {
 transition: .6s fill;
@@ -42,9 +49,15 @@ rect:hover {
 <image width="498" height="156" xlink:href="09064-assets/09064.png"></image>
 </svg>
 </div>
+</div>
 
 <br/>
-<a href="09064-assets/09064-outline.html"><img src="09064-assets/outline-link.png" alt="Outline View" title="Outline View" /><a>
+<a href="javascript:showhide('outlineDiv')">Outline show/hide</a>
+<div id="outlineDiv" style="display:none;">
+<h1>09064</h1>
+<h2>blank</h2>
+
+</div>
 
 </body>
 </html>

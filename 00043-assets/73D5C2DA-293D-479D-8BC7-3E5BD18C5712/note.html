@@ -1,24 +1,7 @@
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title></title>
-
-<style type="text/css">
-p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px 'Helvetica Neue'}
-p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px 'Helvetica Neue'; min-height: 16.7px}
-span.s1 {font-family: 'Helvetica Neue'; font-weight: normal; font-style: normal; font-size: 14.00pt}
-</style>
-</head>
-<body>
-<p class="p1"><span class="s1">with a little bit of scripting/keyboardmaestro, can compare webpage text to yesterday's captured version e.g. set keyboardmaestro to capture the current text, then run</span></p>
-<p class="p2"><span class="s1"></span><br /></p>
-<p class="p1"><span class="s1">#!/bin/bash</span></p>
-<p class="p1"><span class="s1">DATE_TODAY=$(date +"%Y%m%d")</span></p>
-<p class="p1"><span class="s1">DATE_MINUS=$(date -v -1d +"%Y%m%d")</span></p>
-<p class="p1"><span class="s1">FILE_CONTENT=$(pbpaste)</span></p>
-<p class="p1"><span class="s1">echo "$FILE_CONTENT" &gt;&gt; /path/"$DATE_TODAY"filename.txt /usr/local/bin/ksdiff /path/"$DATE_MINUS"filename.txt /path/"$DATE_TODAY"filename.txt</span></p>
-</body>
-</html>
+<!DOCTYPE html><html><head><meta charset="utf-8"/></head><style type="text/css">body { font-family: HelveticaNeue-Thin; font-size: 14pt;} </style><body><p>with a little bit of scripting/keyboardmaestro, can compare webpage text to yesterday's captured version e.g. set keyboardmaestro to capture the current text, then run</p>
+<p>#!/bin/bash<br />
+DATE_TODAY=$(date +&quot;%Y%m%d&quot;)<br />
+DATE_MINUS=$(date -v -1d +&quot;%Y%m%d&quot;)<br />
+FILE_CONTENT=$(pbpaste)<br />
+echo &quot;$FILE_CONTENT&quot; &gt;&gt; /path/&quot;$DATE_TODAY&quot;filename.txt /usr/local/bin/ksdiff /path/&quot;$DATE_MINUS&quot;filename.txt /path/&quot;$DATE_TODAY&quot;filename.txt</p>
+</body></html>

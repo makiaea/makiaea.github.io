@@ -2,6 +2,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>02074</title>
+<script type="text/javascript">
+function showhide(id)
+{
+    var e = document.getElementById(id);
+    e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+}
+</script>
 <style>
 rect {
 transition: .6s fill;
@@ -43,9 +50,18 @@ rect:hover {
 <a xlink:href="https://www.youtube.com/watch?v=NbJAAMHR4ww" xlink:title="https://www.youtube.com/watch?v=NbJAAMHR4ww"><rect x="354" y="176" width="28" height="28"/></a>
 </svg>
 </div>
+</div>
 
 <br/>
-<a href="02074-assets/02074-outline.html"><img src="02074-assets/outline-link.png" alt="Outline View" title="Outline View" /><a>
+<a href="javascript:showhide('outlineDiv')">Outline show/hide</a>
+<div id="outlineDiv" style="display:none;">
+<h1>02074</h1>
+<h2>星屑涙</h2>
+<p>hoshikuzunamida<br />
+acko<br />
+Link: <a href="https://www.youtube.com/watch?v=NbJAAMHR4ww">watch?v=NbJAAMHR4ww</a></p>
+
+</div>
 
 </body>
 </html>
