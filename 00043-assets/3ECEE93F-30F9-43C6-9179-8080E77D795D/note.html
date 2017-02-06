@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/></head><style type="text/css">body { font-family: HelveticaNeue-Thin; font-size: 14pt;} </style><body><p>|<br />
+<!DOCTYPE html><html><head><meta charset="utf-8"/></head><style type="text/css">body { font-family: HelveticaNeue-Thin; font-size: 11pt;} </style><body><p>|<br />
 ---: | :---<br />
 cmd–r | (goto symbol) allows you to move between headers easily in a markdown document<br />
 cmd–p | (goto anything) then # then searchterm to jump to next occurrence in the current document<br />
@@ -12,43 +12,52 @@ cmd–ctrl–g | select all occurrences of word/phrase<br />
 cmd–click | non–successive lines start multiple cursor, or<br />
 <span style="white-space:nowrap;">cmd–shift–L</span> | highlight column with cursor then cmd–shift–L to start column–mode multiple cursor (useful if you want to edit multiple lines at specified places). you can move the cursors as you would a normal cursor e.g. cmd–left to go to the beginning of the line (if you have text running across multiple lines you might want to do cmd–left a few times to ensure it really is the beginning of the line rather than the beginning of the wrapped line)<br />
 tab | autocompletion — be careful with this!<br />
-cmd–number | switch to tab</p>
-<p>modify by going into sublime text preferences — browse packages</p>
+cmd–number | switch to tab<br />
+<br/></p>
+<p>modify by going into sublime text preferences — browse packages<br />
+<br/></p>
 <p>my user preferences:</p>
 <pre><code>{
-	&quot;caret_style&quot;: &quot;solid&quot;,
-	&quot;color_scheme&quot;: &quot;Packages/User/makiaea.tmTheme&quot;,
-	&quot;font_face&quot;: &quot;AvenirNext-UltraLight&quot;,
-	&quot;font_size&quot;: 11.0,
-	&quot;gutter&quot;: false,
-	&quot;line_numbers&quot;: false
+    &quot;caret_style&quot;: &quot;solid&quot;,
+    &quot;color_scheme&quot;: &quot;Packages/User/makiaea.tmTheme&quot;,
+    &quot;font_face&quot;: &quot;AvenirNext-UltraLight&quot;,
+    &quot;font_size&quot;: 11.0,
+    &quot;gutter&quot;: false,
+    &quot;line_numbers&quot;: false
 }
 </code></pre>
+<br/>
 <p>my distraction free preferences; note the larger font size</p>
 <pre><code>{
-	&quot;font_size&quot;: 24,
-	&quot;wrap_width&quot;: 0
+     &quot;font_size&quot;: 24,
+     &quot;wrap_width&quot;: 0
 }
 </code></pre>
+<br/>
 <p>my VBScript.sublime-settings (lots of comments in the code, so word wrap is on…)</p>
 <pre><code>{
-	&quot;gutter&quot;: true,
-	&quot;line_numbers&quot;: true,
-	&quot;wrap_width&quot;: 0,
-	&quot;word_wrap&quot;: &quot;true&quot;
+    &quot;gutter&quot;: true,
+    &quot;line_numbers&quot;: true,
+    &quot;wrap_width&quot;: 0,
+    &quot;word_wrap&quot;: &quot;true&quot;
 }
 </code></pre>
+<br/>
 <p>my <a href="https://www.dropbox.com/s/rqu9lb41xymcoya/makiaea.tmTheme">current theme</a> is based on a custom <a href="https://gist.github.com/eleclerc/1904917/download#">solarized dark theme</a> with markdown highlighting and is stored in</p>
 <pre><code>/Users/maki/Library/Application Support/Sublime Text 3/Packages/User/makiaea.tmTheme
 </code></pre>
+<br/>
 <p>you can create your own shortcuts to projects or even open them from the command line e.g. for sublime text 3:</p>
 <pre><code>/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /Users/maki/Documents/Dropbox/datafiles/20130416maki.sublime-project
 </code></pre>
+<br/>
 <p>package for <a href="https://github.com/SublimeText/VBScript">highliting for VBScript syntax</a></p>
 <p><a href="https://github.com/demon386/SmartMarkdown#v02-support-for-sublime-text-3-added-by-unowen">smartmarkdown</a> sublime3 package for moving between and folding (markdown) headlines. install by downloading zip from github, renaming directory to &quot;SmartMarkdown&quot;, then placing directory into</p>
 <pre><code>/Users/yourusername/Library/Application Support/Sublime Text 3/Packages/
 </code></pre>
-<p>NB assumes #(space)headers, not #header as we are using. shortcuts:</p>
+<br/>
+<p>NB assumes #(space)headers, not #header as we are using. shortcuts:<br />
+<br/></p>
 <p>|<br />
 ---: | :---<br />
 tab | toggle smart folding (when used within a header)<br />
@@ -58,6 +67,7 @@ cmd-shift-. | increase header level<br />
 ctrl-c ctrl-n | move to next (any) headline<br />
 ctrl-c ctrl-p | move to previous (any) headline<br />
 ctrl-c ctrl-f | move to next same-or-higher-level headline<br />
-ctrl-c ctrl-b | move to previous same-or-higher-level headline</p>
+ctrl-c ctrl-b | move to previous same-or-higher-level headline<br />
+<br/></p>
 <p>Set <a href="http://support.markedapp.com/kb/how-to-tips-and-tricks/marked-bonus-pack-scripts-commands-and-bundles">marked</a> to open current (markdown) file, processed (uses build, shortcut cmd-b)</p>
 </body></html>

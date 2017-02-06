@@ -1,5 +1,7 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/></head><style type="text/css">body { font-family: HelveticaNeue-Thin; font-size: 14pt;} </style><body><h2>advanced mac rebinding</h2>
-<p>This technique creates three special keys on your mac keyboard. Initially people might start with just one special key, <em>hyper</em>, and later add others.</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"/></head><style type="text/css">body { font-family: HelveticaNeue-Thin; font-size: 11pt;} </style><body><h2>advanced mac rebinding</h2>
+<br/>
+<p>This technique creates three special keys on your mac keyboard. Initially people might start with just one special key, <em>hyper</em>, and later add others.<br />
+<br/></p>
 <p>|<br />
 ---: | :--- | :---<br />
 tab | tap | normal tab<br />
@@ -7,59 +9,68 @@ tab | hold | hyper (shift–ctrl–alt–cmd) — less often used<br />
 caps lock | tap | access alfred<br />
 caps lock | hold | hyper2 (shift–ctrl–cmd) — most often used as it is in the home row<br />
 left shift | tap | access alfred snippets<br />
-left shift | hold | normal shift</p>
-<p>Alfred and keyboardmaestro can be used easily without this, but rebinding three &quot;helper&quot; keys speeds access to shortcuts, applications, macros etc. Caps lock is taken over entirely, while tab and left shift retain their normal usage but are also given an additional property.</p>
-<p>Keyboardmaestro is application–aware enough to know when you invoke it within applications, and has options to set shortcuts this way. Thus we can use two discrete levels of shortcuts: one general level, which is the same when activated from any application (hyper2+key), and a second application–specific level, which is unique to each application or set of applications (hyper+key).</p>
-<p>You could also separate the usage of hyper2, for example, by combination of letters and numbers — combine hyper2 with letters for applications etc., combine hyper2 with numbers for specific files.</p>
-<p>Here we also use Alfred as a shortcut &quot;menu&quot; for those shortcuts which we don't want to commit to memory as a hyper2+shortcut; that is, we activate alfred using caps lock (tap), the type a few letters (e.g. for screen saver, activate alfred, type scr).</p>
-<p>Oddly enough, hyper+w, hyper+v, hyper+z, hyper+x do not work on my dvorak keyboard layout, because a dvorak v = . and w = , and z = / and these combinations are reserved for sysdiagnose and stackshot (programmer utilities within the operating system)</p>
-<p>An additional bonus of this method is that your hands can stay on the &quot;home row&quot; more, and your left little finger gets more of a workout!</p>
+left shift | hold | normal shift<br />
+<br/></p>
+<p>Alfred and keyboardmaestro can be used easily without this, but rebinding three &quot;helper&quot; keys speeds access to shortcuts, applications, macros etc. Caps lock is taken over entirely, while tab and left shift retain their normal usage but are also given an additional property.<br />
+<br/></p>
+<p>Keyboardmaestro is application–aware enough to know when you invoke it within applications, and has options to set shortcuts this way. Thus we can use two discrete levels of shortcuts: one general level, which is the same when activated from any application (hyper2+key), and a second application–specific level, which is unique to each application or set of applications (hyper+key).<br />
+<br/></p>
+<p>You could also separate the usage of hyper2, for example, by combination of letters and numbers — combine hyper2 with letters for applications etc., combine hyper2 with numbers for specific files.<br />
+<br/></p>
+<p>Here we also use Alfred as a shortcut &quot;menu&quot; for those shortcuts which we don't want to commit to memory as a hyper2+shortcut; that is, we activate alfred using caps lock (tap), the type a few letters (e.g. for screen saver, activate alfred, type scr).<br />
+<br/></p>
+<p>Oddly enough, hyper+w, hyper+v, hyper+z, hyper+x do not work on my dvorak keyboard layout, because a dvorak v = . and w = , and z = / and these combinations are reserved for sysdiagnose and stackshot (programmer utilities within the operating system)<br />
+<br/></p>
+<p>An additional bonus of this method is that your hands can stay on the &quot;home row&quot; more, and your left little finger gets more of a workout!<br />
+<br/></p>
 <ul>
 <li>system preferences keyboard — modifier keys — caps lock key: no action</li>
 <li><a href="https://pqrs.org/osx/karabiner/seil.html">seil</a> free–mac setting — caps lock — change caps lock to 80 (F19)  — future options would be cmd_r or opt_r to F18 etc . NB remember to change caps lock configuration in system to &quot;no action&quot; as per <a href="https://pqrs.org/osx/karabiner/document.html.en">pqrs' notes</a></li>
 <li><a href="https://pqrs.org/osx/karabiner">karabiner</a> free–mac goto tab misc&amp;uninstall, select open private.xml, paste the following code (based on <a href="http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/">brett</a> and <a href="https://pqrs.org/osx/karabiner/document.html.en">pqrs</a>); if you already have other modifications there, just paste the &quot;items&quot;. The syntax appears to be: (1) key to modify (2) when held, send this (3) when tapped, send this.</li>
 </ul>
+<br/>
 <p>here's the code</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;root&gt;
-	&lt;item&gt;
-		&lt;name&gt;F19 to F19&lt;/name&gt;
-		&lt;appendix&gt;(F19 hold to Hyper2 (ctrl+shift+cmd) + F19 Only, send F19)&lt;/appendix&gt;
-		&lt;identifier&gt;private.f192f19_cmdshiftctrl&lt;/identifier&gt;
-		&lt;autogen&gt;
-			--KeyOverlaidModifier--
-			KeyCode::F19,
-			KeyCode::COMMAND_L,
-			ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-			KeyCode::F19,
-		&lt;/autogen&gt;
-	&lt;/item&gt;
-	&lt;item&gt;
-		&lt;name&gt;Shift_L to Shift_L&lt;/name&gt;
-		&lt;appendix&gt;(Shift_L hold to Shift_L + Shift_L Only, send F18)&lt;/appendix&gt;
-		&lt;identifier&gt;private.shiftl2shiftl_f18&lt;/identifier&gt;
-		&lt;autogen&gt;
-			--KeyOverlaidModifier--
-			KeyCode::SHIFT_L,
-			KeyCode::SHIFT_L,
-			KeyCode::F18,
-		&lt;/autogen&gt;
-	&lt;/item&gt;
-	&lt;item&gt;
-		&lt;name&gt;Tab to Tab&lt;/name&gt;
-		&lt;appendix&gt;(Tab tap to Tab + Tab hold send Hyper (ctrl+shift+cmd+opt))&lt;/appendix&gt;
-		&lt;identifier&gt;private.tab2tab_cmdoptshiftctrl&lt;/identifier&gt;
-		&lt;autogen&gt;
-			--KeyOverlaidModifier--
-			KeyCode::TAB,
-			KeyCode::COMMAND_L,
-			ModifierFlag::SHIFT_L | 
-			ModifierFlag::OPTION_L | ModifierFlag::CONTROL_L,
-			KeyCode::TAB,
-		&lt;/autogen&gt;
-	&lt;/item&gt;
+    &lt;item&gt;
+        &lt;name&gt;F19 to F19&lt;/name&gt;
+        &lt;appendix&gt;(F19 hold to Hyper2 (ctrl+shift+cmd) + F19 Only, send F19)&lt;/appendix&gt;
+        &lt;identifier&gt;private.f192f19_cmdshiftctrl&lt;/identifier&gt;
+        &lt;autogen&gt;
+            --KeyOverlaidModifier--
+            KeyCode::F19,
+            KeyCode::COMMAND_L,
+            ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F19,
+        &lt;/autogen&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;name&gt;Shift_L to Shift_L&lt;/name&gt;
+        &lt;appendix&gt;(Shift_L hold to Shift_L + Shift_L Only, send F18)&lt;/appendix&gt;
+        &lt;identifier&gt;private.shiftl2shiftl_f18&lt;/identifier&gt;
+        &lt;autogen&gt;
+            --KeyOverlaidModifier--
+            KeyCode::SHIFT_L,
+            KeyCode::SHIFT_L,
+            KeyCode::F18,
+        &lt;/autogen&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;name&gt;Tab to Tab&lt;/name&gt;
+        &lt;appendix&gt;(Tab tap to Tab + Tab hold send Hyper (ctrl+shift+cmd+opt))&lt;/appendix&gt;
+        &lt;identifier&gt;private.tab2tab_cmdoptshiftctrl&lt;/identifier&gt;
+        &lt;autogen&gt;
+            --KeyOverlaidModifier--
+            KeyCode::TAB,
+            KeyCode::COMMAND_L,
+            ModifierFlag::SHIFT_L | 
+            ModifierFlag::OPTION_L | ModifierFlag::CONTROL_L,
+            KeyCode::TAB,
+        &lt;/autogen&gt;
+    &lt;/item&gt;
 &lt;/root&gt;
 </code></pre>
+<br/>
 <ul>
 <li>go back to change key tab, select reload xml; the options above should now appear at the top of the menu</li>
 <li>enable the options</li>
