@@ -9,8 +9,9 @@ def main():
 	text = keyboard.get_selected_text()
 	
 	task = urllib.parse.quote(text.encode('utf-8'))
-
-	webbrowser.open('https://www.duckduckgo.com/?q=!cantodict%20' + task)
+	
+	webbrowser.open('http://www.cantonese.sheik.co.uk/dictionary/search/?searchtype=1&text=' + task)
+	#webbrowser.open('https://www.duckduckgo.com/?q=!cantodict%20' + task)
 
 if __name__ == '__main__': 
 	main()
