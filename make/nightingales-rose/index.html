@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Nightingale's Rose</title>
+		<!-- Stylesheets -->
+		<link href='http://fonts.googleapis.com/css?family=Cabin:500' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<!-- Libraries -->
+		<script type="text/javascript" src="js/lib/d3.min.js"></script>
+		<!-- Scripts -->
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<body>	
+		<!--<h1>Nightingale's Rose</h1>-->
+
+		<!-- notes
+			http://pds.lib.harvard.edu/pds/view/7420433?n=21&imagesize=2400&jp2Res=0.25&printThumbnails=no
+
+			d3 format https://github.com/kgryte/gists/tree/master/d3/nightingales-rose
+			download gist by using https://github.com/kgryte/gists/zipball/master/d3/nightingales-rose
+			help via http://stackoverflow.com/questions/2751227/how-to-download-source-in-zip-format-from-github
+
+Table II.
+
+Table showing the Estimated Average Monthly Strength of the Army; and the deaths and Annual Rate of Mortality per 1000 in each month, from April 1854, to March 1856 (inclusive), in the Hospitals of the Army in the East
+
+Deaths	Annual rate of mortality per 1000
+Month	Average size of army	Zymotic diseases	Wounds & injuries	All other causes	Zymotic diseases	Wounds & injuries	All other causes
+Apr 1854	8571	1	0	5	1.4	0	7.0
+May 1854	23333	12	0	9	6.2	0	4.6
+Jun 1854	28333	11	0	6	4.7	0	2.5
+Jul 1854	28722	359	0	23	150.0	0	9.6
+Aug 1854	30246	828	1	30	328.5	0.4	11.9
+Sep 1854	30290	788	81	70	312.2	32.1	27.7
+Oct 1854	30643	503	132	128	197.0	51.7	50.1
+Nov 1854	29736	844	287	106	340.6	115.8	42.8
+Dec 1854	32779	1725	114	131	631.5	41.7	48.0
+Jan 1855	32393	2761	83	324	1022.8	30.7	120.0
+Feb 1855	30919	2120	42	361	822.8	16.3	140.1
+Mar 1855	30107	1205	32	172	480.3	12.8	68.6
+Apr 1855	32252	477	48	57	177.5	17.9	21.2
+May 1855	35473	508	49	37	171.8	16.6	12.5
+Jun 1855	38863	802	209	31	247.6	64.5	9.6
+Jul 1855	42647	382	134	33	107.5	37.7	9.3
+Aug 1855	44614	483	164	25	129.9	44.1	6.7
+Sep 1855	47751	189	276	20	47.5	69.4	5.0
+Oct 1855	46852	128	53	18	32.8	13.6	4.6
+Nov 1855	37853	178	33	32	56.4	10.5	10.1
+Dec 1855	43217	91	18	28	25.3	5.0	7.8
+Jan 1856	44212	42	2	48	11.4	0.5	13.0
+Feb 1856	43485	24	0	19	6.6	0	5.2
+Mar 1856	46140	15	0	35	3.9	0	9.1
+
+		-->
+		<!-- Inspiration:
+			http://mbostock.github.io/protovis/ex/crimea-rose.html
+			http://understandinguncertainty.org/node/213
+			https://github.com/kgryte/gists/tree/master/d3/nightingales-rose
+		-->		
+		
+		<script type="text/javascript">
+		var margin = {top: 10, left: 10, bottom: 10, right: 10}
+  			, width = parseInt(d3.select('body').style('width'))
+  			, width = width - margin.left - margin.right
+  			, bodyRatio = 1
+  			, height = width * bodyRatio;
+
+			var rose = Chart.rose(),
+				//height = height,
+				format = d3.time.format('%m/%Y'),
+				causes = ['disease', 'wounds', 'other'],
+				labels = ['  january', '  february', '  march', '  april', '  may', '  june', '  july', '  august', '  september', '  october', '  november', '  december'];
+
+			// Add a title:
+			d3.select('body').append('h1')
+				.attr('class', 'title')
+				.html( '<p>DIAGRAM of the CAUSES of MORTALITY in the ARMY in the EAST</p>');
+
+			// Add sub-titles:
+			d3.select('body').append('h2')
+				.attr('class', 'subtitle')
+				.html('<p>1.<br />APRIL 1854 to MARCH 1855</p>');
+
+			// Load the JSON data:
+			d3.json( 'data/data.json', function( data ) {
+				// Data from: http://ocp.hul.harvard.edu/dl/contagion/010164675
+
+				// Format the date and rework the data:
+				var scalar;
+				data.forEach( function(d) { 
+					d.date = format.parse(d.date);
+					d.label = labels[d.date.getMonth()];
+					
+					// Calculate the average annual mortality, as done by Nightingale:
+					// http://understandinguncertainty.org/node/214 
+					scalar = 1000*12 / d.army_size;
+					d.disease = d.disease * scalar;
+					d.wounds  = d.wounds  * scalar;
+					d.other   = d.other   * scalar;
+				} );
+
+				// Get the maximum value:
+				var maxVal = d3.max( data, function(d) {
+					return d3.max( [d.disease, d.wounds, d.other] );
+				});
+
+				// Where the maximum value gives us the maximum radius:
+				var maxRadius = Math.sqrt(maxVal*12 / Math.PI);
+
+				// Divide the dataset in two:
+				var dataset2 = data.slice(12,24),
+					dataset1 = data.slice(0,12);
+				
+				// Append a new figure to the DOM:
+				figure = d3.select( 'body' )
+					.append( 'figure' );
+
+				// Get the figure width:
+				width = parseInt( figure.style( 'width' ), 10 );
+
+				// Update the chart generator settings:
+				rose.legend( causes )
+					.width( width )
+					.height( height )
+					.delay( 0 )
+					.duration( 0 )
+					.domain( [0, maxRadius] )
+					.angle( function(d) { return d.date.getMonth(); } )
+					.area( function(d, i) { return [d.disease, d.wounds, d.other]; } );						
+
+				// Create a legend:
+				Chart.legend( causes );
+
+								// Append a caption:
+				d3.select('body').append('figcaption')
+					.attr('class', 'caption')
+					.html('<p>The Areas of the blue, red, &amp; black wedges are each measured from the centre as the common vertex.</p><p>The blue wedges measured from the centre of the circle represent area for area the deaths from Preventible or Mitigable Zymotic Diseases, the red wedges measured from the center the deaths from wounds, &amp; the black wedges measured from the center the deaths from all other causes.</p><p> In October 1844, &amp; April 1855, the black area coincides with the red, in January &amp; February 1856, the blue coincides with the black.</p><p>The entire areas may be compared by following the blue, the red &amp; the black lines enclosing them.</p>');
+
+
+			// Add sub-titles:
+			d3.select('body').append('h2')
+				.attr('class', 'subtitle')
+				.html('<p>2.<br />APRIL 1855 to MARCH 1856</p>');
+
+				// Bind the data and generate a new chart:
+				figure.datum( dataset1 )
+					.attr('class', 'chart figure1')
+					.call( rose );	
+
+				// Append a new figure to the DOM:
+				figure = d3.select( 'body' )
+					.append( 'figure' );
+
+				// Get the figure width:
+				width = parseInt( figure.style( 'width' ), 10 );
+
+				// Update the chart generator settings:
+				rose.width( width )
+					.delay( 0 );
+
+				// Bind the second dataset and generate a new chart:
+				figure.datum( dataset2 )
+					.attr('class', 'chart figure2')
+					.call( rose );	
+
+				// Create a slider:
+				// Chart.slider( 0, data.length, 1 ); // minVal, maxVal, step
+				
+			});	
+
+
+
+		</script>
+<!-- <p class="label rotate bulgaria">bulgaria</p>
+<p class="label rotate crimea">crimea</p> -->
+	</body>
+</html>
