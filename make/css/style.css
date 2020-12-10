@@ -1,0 +1,124 @@
+
+
+
+/* Apply a natural box layout model to all elements */
+* { 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+/* .rotate.bulgaria{
+	-moz-transform: rotate(-90deg) translate(25%,-40%);
+	font-style: oblique;
+	-webkit-transform: rotate(-90deg) translate(300px,-10px);
+
+}
+.rotate.crimea{
+	-moz-transform: translate(70%,300%);
+	font-style: oblique;
+	-webkit-transform: rotate(-90deg) translate(300px,-10px);
+
+} */
+body {
+	font-family: 'Cabin', sans-serif;
+	font-size: 1em;
+	font-weight: normal;
+	color: #474747;
+}
+
+p {margin-top: 1em; color: #474747;}
+figure {
+	margin-top: -22%;
+	text-align: center;
+}
+
+.title, .subtitle, .caption, .legend, figure {
+	font-family: baskerville, serif;
+}
+
+label {
+	font-family: arial, sans-serif;
+}
+
+.title, .subtitle, .label, .legend {
+	font-variant: small-caps;
+	color: #474747;
+}
+
+h2.subtitle p {color: #474747 !important;}
+
+.title {
+	font-size: 1.2em;
+	text-align: center;
+	margin: 0 auto;
+	position: -webkit-sticky !important; top: 0px; background-color: white; padding: 0px;
+}
+
+.subtitle {
+	font-size: 1.1em;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.caption {
+	font-style: oblique;
+	font-size: 1em;
+}
+
+.caption p {
+	margin: 0 0 0 2em;
+	text-indent: -1em;
+	text-indent: each-line;
+}
+
+.canvas {
+	font-family: 'Cabin', sans-serif;
+ 	font-size: 14px;
+ 	fill: #474747;
+ 	font-weight: normal;
+}
+
+.wedge {
+	stroke-width: .5;
+	/*shape-rendering: crispEdges;*/
+}
+
+.label {
+	font-size: .9em;
+}
+
+.disease {
+	fill: powderblue;
+	stroke: darkcyan;
+
+}
+
+.other {
+	fill: gray;
+	stroke: black;
+
+}
+
+.wounds {
+	fill: lightpink;
+	stroke: darkred;
+
+}
+
+.legend {
+	font-size: 1em;
+	padding-top: 0em;
+	text-align: center;
+	height: 4em;
+	margin: 0 auto;
+}
+
+.slider {
+	width: 400px;
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	left: -30px; /* hacky */
+	top: -100px;
+}
+
