@@ -52,7 +52,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <!--~~ Raw markup ~~-->
 
+<script>
+// 20210411 original by lin onetwo: https://groups.google.com/g/tiddlywiki/c/kpgWMO8NO6Q/m/HumrQYaGAgAJ
+// 20210102 modified makiaea to use pointer vs mouse; for mobile use, untested on desktop https://usefulangle.com/post/27/javascript-advantage-of-using-pointer-events-over-mouse-touch-events
+// (works only outside text editor) select as normal, single tap selected text to copy
+// we won't do copy on select on text editor, otherwise you can't select and override text in the editor or text input
+function checkIfElementIsEditor(element) 
+{
+    if (!element || !element.nodeName) return false;
+  const isEditableElement = ['INPUT', 'TEXTAREA', 'BUTTON'].includes(element.nodeName);
+    if (!isEditableElement) {
+  	if (!element.className || !element.className.toLowerCase) return false;
+    }
+  
+const isTextEditor = element.className.toLowerCase().includes('codemirror');
 
+  return isEditableElement || isTextEditor;
+}
+// if we start selection on editor, we prevent the following execution of this script
+let copyOnSelectPreventNextCopy = false;
+document.addEventListener('pointerdown', function onPointerDown() {
+  
+const elementsUnderPointer = document.querySelectorAll(':hover'
+);
+
+  if (!elementsUnderPointer || Array.from(elementsUnderPointer).some(checkIfElementIsEditor)) {
+    copyOnSelectPreventNextCopy = true;
+  }
+});
+// Copy on select, copy document selection when pointer is up
+document.addEventListener('pointerup', function onPointerUp() {
+  const elementsUnderPointer = document.querySelectorAll(':hover');
+
+  if
+ (
+    copyOnSelectPreventNextCopy ||
+    !elementsUnderPointer ||
+    Array.from(elementsUnderPointer).some(checkIfElementIsEditor)
+  ) {
+    copyOnSelectPreventNextCopy = false;
+    
+return;
+  }
+  document.execCommand('copy');
+});
+</script>
 
 </head>
 <body class="tc-body">
@@ -372,6 +416,8 @@ Error message and password prompt
 <li>command palette</li>
 
 <li>compensatory mechanism</li>
+
+<li>copy on select</li>
 
 <li>create tiddlywiki plugin</li>
 
@@ -16235,7 +16281,7 @@ very-muted-foreground: #888888</pre>
 <div created="20201226050417267" modified="20201226050838652" title="$:/state/plugin-info--77848898-$:/plugins/ebalster/formula--1238506636">
 <pre>readme</pre>
 </div>
-<div created="20201224213614521" modified="20210102110231865" title="$:/state/sidebar">
+<div created="20201224213614521" modified="20210102114711147" title="$:/state/sidebar">
 <pre>no</pre>
 </div>
 <div created="20201229012550748" modified="20201229012604257" title="$:/state/tab--1116343243">
@@ -16280,8 +16326,8 @@ very-muted-foreground: #888888</pre>
 <div created="20201226212839854" modified="20201229043425603" title="$:/state/tab-980667425">
 <pre>$:/core/ui/TiddlerInfo/References</pre>
 </div>
-<div created="20201229103043206" modified="20210102090545044" title="$:/state/tab/deck">
-<pre>recall</pre>
+<div created="20201229103043206" modified="20210102112617104" title="$:/state/tab/deck">
+<pre>tips</pre>
 </div>
 <div created="20201229014119664" modified="20201229103024856" title="$:/state/tab/deck-958692595">
 <pre>recall</pre>
@@ -16310,7 +16356,7 @@ very-muted-foreground: #888888</pre>
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20210102110231881" list="壹" modified="20210102110555864" title="$:/StoryList">
+<div created="20210102114717010" list="makiaea-test changelog [[copy on select]]" modified="20210102114911121" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20201218052231111" list="$:/core/ui/EditTemplate/controls $:/core/ui/EditTemplate/shadow $:/core/ui/ViewTemplate/classic $:/core/ui/EditTemplate/title $:/core/ui/EditTemplate/body $:/core/ui/EditTemplate/tags $:/core/ui/EditTemplate/fields $:/core/ui/EditTemplate/type" modified="20201226211609641" title="$:/tags/EditTemplate">
@@ -16564,8 +16610,11 @@ serve with honey/sugar and lemon
    &lt;/$fieldmangler&gt;
 &lt;/$list&gt;</pre>
 </div>
-<div created="20210101085607815" ef="2.5" modified="20210101204548998" quality="5" tags="tools" title="changelog">
-<pre>20210101 installed [[relink|https://github.com/flibbles/tw5-relink]] and relink titles</pre>
+<div created="20210101085607815" ef="2.5" modified="20210102115022865" quality="5" tags="tools" title="changelog">
+<pre>&quot;&quot;&quot;
+20210102 lin onetwo's [[copy on select]] script installed, modified for touch
+20210101 installed [[relink|https://github.com/flibbles/tw5-relink]] and relink titles
+&quot;&quot;&quot;</pre>
 </div>
 <div created="20201129110958327" modified="20201221054831536" tags="$:/tags/StartupAction" title="close sidebar when screen is small">
 <pre>&lt;$reveal type=&quot;lt&quot; state=&quot;$:/info/browser/screen/width&quot; text=&quot;1000&quot;&gt;
@@ -16587,6 +16636,53 @@ see [[quiz.css]]</pre>
 <pre>when we lose our compensatory mechanisms for dealing with corrupted information, whether through indoctrination, ill health or other circumstance, then we lose a critical part of our system for dealing with reality.
 
 even while we still have those mechanisms, we might still believe that it is a simple thing, to know that our abilities, systems are fragile and need maintenance —but tragically, once the mechanisms are lost, it is rare to regain them, because without them a person drifts further and deeper from reality.</pre>
+</div>
+<div created="20210102111615284" ef="2.5" modified="20210102114824985" quality="5" tags="tips $:/tags/RawMarkup" title="copy on select">
+<pre>&lt;script&gt;
+// 20210411 original by lin onetwo: https://groups.google.com/g/tiddlywiki/c/kpgWMO8NO6Q/m/HumrQYaGAgAJ
+// 20210102 modified makiaea to use pointer vs mouse; for mobile use, untested on desktop https://usefulangle.com/post/27/javascript-advantage-of-using-pointer-events-over-mouse-touch-events
+// (works only outside text editor) select as normal, single tap selected text to copy
+// we won't do copy on select on text editor, otherwise you can't select and override text in the editor or text input
+function checkIfElementIsEditor(element) 
+{
+    if (!element || !element.nodeName) return false;
+  const isEditableElement = ['INPUT', 'TEXTAREA', 'BUTTON'].includes(element.nodeName);
+    if (!isEditableElement) {
+  	if (!element.className || !element.className.toLowerCase) return false;
+    }
+  
+const isTextEditor = element.className.toLowerCase().includes('codemirror');
+
+  return isEditableElement || isTextEditor;
+}
+// if we start selection on editor, we prevent the following execution of this script
+let copyOnSelectPreventNextCopy = false;
+document.addEventListener('pointerdown', function onPointerDown() {
+  
+const elementsUnderPointer = document.querySelectorAll(':hover'
+);
+
+  if (!elementsUnderPointer || Array.from(elementsUnderPointer).some(checkIfElementIsEditor)) {
+    copyOnSelectPreventNextCopy = true;
+  }
+});
+// Copy on select, copy document selection when pointer is up
+document.addEventListener('pointerup', function onPointerUp() {
+  const elementsUnderPointer = document.querySelectorAll(':hover');
+
+  if
+ (
+    copyOnSelectPreventNextCopy ||
+    !elementsUnderPointer ||
+    Array.from(elementsUnderPointer).some(checkIfElementIsEditor)
+  ) {
+    copyOnSelectPreventNextCopy = false;
+    
+return;
+  }
+  document.execCommand('copy');
+});
+&lt;/script&gt;</pre>
 </div>
 <div created="20201231130535761" due="20210114002105956" ef="2.18" modified="20210102083253872" quality="2" recall="1" tags="recall tips" title="create tiddlywiki plugin">
 <pre>[[andreas' tinka plugin creator|https://tinkaplugin.github.io/]]
@@ -17470,13 +17566,13 @@ recall&lt;br/&gt;^^&lt;$count filter=&quot;{{{ [!is[current]!days:due[-1]] [!is[
 
 richard's [[node.js static output|https://richardsmith.neocities.org/site/exporting-static-sites-from-tiddlywiki-part-1.html]]</pre>
 </div>
-<div created="20201117021819620" due="20210113065148719" ef="1.9" modified="20201223182300739" quality="5" recall="7" tags="tips recall" title="tiddlywiki tips" type="text/vnd.tiddlywiki">
+<div created="20201117021819620" due="20210113065148719" ef="1.9" modified="20210102111752142" quality="5" recall="7" tags="tips recall" title="tiddlywiki tips" type="text/vnd.tiddlywiki">
 <pre>escape on ios external keyboard is ctrl–. you can use this with the keyboard shortcuts (see $:/ControlPanel keyboard shortcuts for defaults), [[define your own shortcuts|https://groups.google.com/g/tiddlywiki/c/14p7tNUfT7Q/m/fEd_O1cUDQAJ]] or use the [[official documentation|https://tiddlywiki.com/prerelease/#How%20to%20create%20keyboard%20shortcuts]]
 
 i use ctrl–s (save), cmd–. (escape), ctrl–enter (save tiddler), ctrl–p (command palette)
 
 &quot;&quot;&quot;
-mohamed https://kookma.github.io/TW-Scripts/
+mohammad https://kookma.github.io/TW-Scripts/
 tobias https://tobibeer.github.io/tb5/#Welcome
 scott https://techlifeweb.com/tiddlywiki/tw5tribalknowledge/static/Home.html
 https://tiddlywiki.com/prerelease/
@@ -17486,7 +17582,7 @@ tiddlywiki [[user forum|https://groups.google.com/g/tiddlywiki]]
 tiddlywiki [[developer discussions|https://github.com/Jermolene/TiddlyWiki5/discussions]]
 quine 2 [[user forum|https://groups.google.com/g/quine-app]]
 
-mohamed's [[understanding brackets and shorthand syntax in tiddlywiki wikitext|https://kookma.github.io/TW-Scripts/#Shorthand%20Syntax%20Summary]]
+mohammad's [[understanding brackets and shorthand syntax in tiddlywiki wikitext|https://kookma.github.io/TW-Scripts/#Shorthand%20Syntax%20Summary]]
 &quot;&quot;&quot;
 &lt;&lt;list-links filter:&quot;
 [!is[system]!is[current]tag[tips]!sort[modified]]&quot; type:&quot;ol&quot;&gt;&gt;</pre>
@@ -19441,7 +19537,7 @@ e.g. 你呢隻手 [this hand of you(rs)]; 你呢種性格 [This type of personal
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201219181157958" due="20210102124201878" ef="1.6" modified="20201226075401911" quality="5" recall="4" revision="0" tags="recall" title="你唔係呀嘛" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201219181157958" due="20210114072005481" ef="1.7" modified="20210102111019760" quality="5" recall="5" revision="0" tags="recall" title="你唔係呀嘛" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
 你唔係呀嘛 nei^^5^^m^^4^^hai^^6^^aa^^3/1^^maa^^3^^ — an exclamation of surprise or irritation, “you can’t be serious!”, “you must be kidding!”, “why did you do something so stupid?”
@@ -19904,12 +20000,12 @@ e.g. 你呢隻手 [this hand of you(rs)]; 你呢種性格 [This type of personal
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201120141959895" due="20210102160736059" ef="1.4" modified="20201223063136092" quality="5" recall="9" revision="0" tags="recall" title="兒嬉" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201120141959895" due="20210123022014454" ef="1.5" modified="20210102111156919" quality="5" recall="10" revision="0" tags="recall" title="兒嬉" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
 兒嬉 ji^^4^^hei^^1^^ — child’s play
 兒 ji^^4^^ — child, son
-嬉 hei^^1^^ — [v] play; sport; frolic
+嬉 hei^^1^^ — [v] play, sport, frolic
 &quot;&quot;&quot;
 @@</pre>
 </div>
@@ -21085,12 +21181,12 @@ suddenly, abruptly, unexpectedly //var.// 猝
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201120051347168" due="20210102160117821" ef="1.3" modified="20201223062517848" quality="2" recall="9" revision="0" tags="recall" title="卸膊" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201120051347168" due="20210117203231911" ef="1.3" modified="20210102111103246" quality="2" recall="1" revision="0" tags="recall" title="卸膊" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
-卸膊 se^^3^^bok^^3^^ — deny/shirk responsibility; avoid responsibility for one’s actions; 華: 卸肩
-卸 se^^3^^ — unload; strip; get rid of
-膊 bok^^3^^ — upper arm; shoulder
+卸膊 se^^3^^bok^^3^^ — deny/shirk responsibility, avoid responsibility for one’s actions; 華: 卸肩
+卸 se^^3^^ — unload, strip, get rid of
+膊 bok^^3^^ — upper arm, shoulder
 &quot;&quot;&quot;
 @@</pre>
 </div>
@@ -22561,7 +22657,7 @@ frighten, threaten, scare, intimidate, startle
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201226092628080" due="20210102123624201" ef="1.3" modified="20201231080138186" quality="2" recall="1" revision="0" tags="recall" title="壹" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201226092628080" due="20210104184917744" ef="1.3" modified="20210102111001916" quality="2" recall="1" revision="0" tags="recall" title="壹" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
 壹 jat^^1^^ / yi^^1^^ — one, used as the numeral “一” on cheques, banknotes, etc to avoid mistakes or alterations
@@ -23005,12 +23101,12 @@ jiu^^2^^ is standard reading; jiu^^1^^ is variant
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201120072948056" due="20210102160253475" ef="1.4" modified="20201223062653509" quality="5" recall="9" revision="0" tags="recall" title="姓賴" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201120072948056" due="20210123005615573" ef="1.5" modified="20210102111129642" quality="5" recall="10" revision="0" tags="recall" title="姓賴" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
 姓賴 sing^^3^^laai^^6^^ — rascally, shameless, unreasonable
 姓 sing^^3^^ seng^^3^^ — surname
-賴 laai^^6^^ — rely on; blame sb wrongly; family name
+賴 laai^^6^^ — rely on, blame sb wrongly, family name
 &quot;&quot;&quot;
 @@</pre>
 </div>
@@ -23043,7 +23139,7 @@ jiu^^2^^ is standard reading; jiu^^1^^ is variant
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201219181112653" due="20210102124048298" ef="1.6" modified="20201226075248324" quality="5" recall="4" revision="0" tags="recall" title="娘丙" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201219181112653" due="20210111102101505" ef="1.3" modified="20210102111012752" quality="2" recall="1" revision="0" tags="recall" title="娘丙" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
 娘丙 noeng^^4*1^^bing^^2^^ — used to describe someone being provincial, unsophisticated, uncool
@@ -26757,7 +26853,7 @@ saan^^2^^ &amp; san^^3^^
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div created="20201228082630695" due="20210102130103892" ef="1.4" modified="20201230062207811" quality="5" recall="2" tags="recall" title="數碼攝錄機">
+<div created="20201228082630695" due="20210107160428614" ef="1.5" modified="20210102111030388" quality="5" recall="3" tags="recall" title="數碼攝錄機">
 <pre>@@.answer
 &quot;&quot;&quot;
 數碼攝錄機 sou^^3^^maa^^5^^sip^^3^^luk^^6^^gei^^1^^ — digital video camera
@@ -28219,7 +28315,7 @@ Traditionally, a pair of lanterns, on which the age of the deceased is written, 
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div created="20201228210717265" due="20210102145431090" ef="1.4" modified="20201230012305945" quality="5" recall="2" tags="recall" title="水牛">
+<div created="20201228210717265" due="20210108041353076" ef="1.5" modified="20210102111033777" quality="5" recall="3" tags="recall" title="水牛">
 <pre>@@.answer
 &quot;&quot;&quot;
 水牛 seoi^^2^^ngau^^4^^ — water–buffalo
@@ -30451,7 +30547,7 @@ in cantonese, 盤 is sometimes mixed up with 盆 because of similarity in pronun
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201219181255270" due="20210102124236073" ef="1.6" modified="20201226075436111" quality="5" recall="4" revision="0" tags="recall" title="眼花花" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201219181255270" due="20210115071527403" ef="1.7" modified="20210102111023035" quality="5" recall="5" revision="0" tags="recall" title="眼花花" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
 眼花花 ngaan^^5^^faa^^1^^faa^^1^^ — have dim insight, have blurred vision
@@ -31545,13 +31641,13 @@ large box, trunk, chest
 &quot;&quot;&quot;
 @@</pre>
 </div>
-<div bag="default" created="20201126150823937" due="20210102161139703" ef="1.3" modified="20201223063539723" quality="2" recall="9" revision="0" tags="recall" title="綜合" type="text/vnd.tiddlywiki">
+<div bag="default" created="20201126150823937" due="20210102161139703" ef="1.3" modified="20210102111249489" quality="2" recall="9" revision="0" tags="recall" title="綜合" type="text/vnd.tiddlywiki">
 <pre>@@.answer
 &quot;&quot;&quot;
-綜合 zung^^3^^hap^^6^^ — [1](v.) to synthesise; to mix together; to meld; to integrate; to sum up
-[2](adj.) comprehensive; synthesised; composite; multiple
+綜合 zung^^3^^hap^^6^^ — [1](v.) to synthesise, to mix together, to meld, to integrate, to sum up
+[2](adj.) comprehensive, synthesised, composite, multiple
 綜 zung^^3^^ zung^^1^^ — sum up
-合 hap^^6^^ ho^^4^^ gap^^3^^ — close; join; whole; suit; add up to
+合 hap^^6^^ ho^^4^^ gap^^3^^ — close, join, whole, suit, add up to
 &quot;&quot;&quot;
 @@</pre>
 </div>
